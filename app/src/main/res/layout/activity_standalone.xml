@@ -8,22 +8,22 @@
 
 
     <Button
-        android:id="@+id/buttonPlaySingle"
+        android:id="@+id/btnPlayVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="124dp"
-        android:text="Play A Single-Video"
+        android:text="Play Video"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonStandalone"
+        android:id="@+id/btnPlaylist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="236dp"
-        android:text="Standalone Sub-Menu"
+        android:text="Play Playlist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,5 +1,6 @@
 package com.siddydevelops.youtubeplayer
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
@@ -15,6 +16,10 @@ const val YOUTUBE_VIDEO_ID = "nG_Vydox0v8"
 const val YOUTUBE_PLAYLIST = "PLBlnK6fEyqRiVhbXDGLXDk_OQAeuVcp2O"
 
 class YoutubeActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
+
+    private val DIALOG_REQUEST_CODE = 1
+    val playerView by lazy { YouTubePlayerView(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_youtube)
@@ -28,7 +33,6 @@ class YoutubeActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListen
 //        button1.text = "Button Added"
 //        layout.addView(button1)
 
-        val playerView = YouTubePlayerView(this)
         playerView.layoutParams = ConstraintLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT)
         layout.addView(playerView)
@@ -49,9 +53,8 @@ class YoutubeActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListen
     }
 
     override fun onInitializationFailure(provider: YouTubePlayer.Provider?,youTubeInitializationResult: YouTubeInitializationResult?) {
-        val REQUEST_CODE = 0
         if(youTubeInitializationResult?.isUserRecoverableError == true) {
-            youTubeInitializationResult.getErrorDialog(this, REQUEST_CODE).show()
+            youTubeInitializationResult.getErrorDialog(this, DIALOG_REQUEST_CODE).show()
         } else {
             val errorMessage = "There was an error initializing the Youtube $youTubeInitializationResult"
             Toast.makeText(this,errorMessage,Toast.LENGTH_LONG).show()
@@ -106,6 +109,12 @@ class YoutubeActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListen
 
         }
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == DIALOG_REQUEST_CODE) {
+            playerView.initialize(getString(R.string.GOOGLE_API_KEY),this)
+        }
     }
 
 }
